@@ -1,0 +1,11 @@
+#
+#
+# Sample data file provided for testing #
+#Create a frame with 500x500 pixels (top left should be 0,0,255)
+INIT 500 500
+
+# Draw some red points and pause for .4seconds after all are drawn
+POINT 50 50 (255,0,0,255)
+POINT 450 50 (255,0,0,255)
+POINT 50 450 (255,0,0,255)
+POINT 450 450 (255,0,0,255) 

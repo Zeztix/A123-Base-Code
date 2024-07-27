@@ -20,7 +20,13 @@ public class FrameBuffer {
 	//A start on the point function. NOTE this is not complete!
 	public void point(int xc, int yc, int r, int g, int b) {
 		// TODO: Add point into array
-		
+		// Check if the point is within the bounds of the buffer
+		if (xc >= 0 || xc < width || yc >= 0 || yc < height) {
+			// Combine RGB values
+			int colour = (r << 16) | (g << 8) | b;
+			// Set the pixel in the buffer
+			pixels[yc * width + xc] = colour;
+		}
 	}
 	
 	// Implement other drawing functions here...
