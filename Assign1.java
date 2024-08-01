@@ -94,7 +94,7 @@ public class Assign1 {
                             int xc = scanner.nextInt();
                             int yc = scanner.nextInt();
 
-                            //TO DO: need to extract the colours here
+                            //TODO: need to extract the colours here
                             //get the colour
                             String color = scanner.next();
                             //System.out.println(color);
@@ -116,9 +116,10 @@ public class Assign1 {
                             int lnflt_x2 = scanner.nextInt();
                             int lnflt_y2 = scanner.nextInt();
 
-                            //int red = 255, green = 0, blue = 0;
+                            red = 255; green = 0; blue = 0;
 
                             //TODO: call lineFloat method to change pixel array and update canvas
+                            buffer.lineFloat(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, red, green, blue);
                             canvas.repaint();
 
                             break;
