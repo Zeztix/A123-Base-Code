@@ -64,16 +64,24 @@ public class FrameBuffer {
 
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
-		// TODO: Implement these functions using bitwise operations and masking to retrieve individual colour components
-		return 0;
+		int colour = pixels[yc * width + xc];
+		int red = (colour >> 16) & 0xff;
+
+		return red;
 	}
 
 	public int getGreen(int xc, int yc) {
-		return 0;
+		int colour = pixels[yc * width + xc];
+		int green = (colour >> 8) & 0xff;
+
+		return green;
 	}
 
 	public int getBlue(int xc, int yc) {
-		return 0;
+		int colour = pixels[yc * width + xc];
+		int blue = colour & 0xff;
+
+		return blue;
 	}
 
 	public int getWidth() {

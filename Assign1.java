@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Assign1 {
 
+
     public static void main(String[] args) {
 
 	System.out.println("Starting 2D engine...");
@@ -21,7 +22,7 @@ public class Assign1 {
         String command;
         int lineNumber = 0;
         String trimmedLine;
-        
+
         //Look at each file
         for (int i = 0; i < args.length; i++) {
             try {
@@ -94,12 +95,13 @@ public class Assign1 {
                             int xc = scanner.nextInt();
                             int yc = scanner.nextInt();
 
-                            //TODO: need to extract the colours here
                             //get the colour
-                            String color = scanner.next();
-                            //System.out.println(color);
-                            int red = 255, green=0, blue = 0;
-
+                            String colour = scanner.next();
+                            //System.out.println(colour);
+                            int[] colours = extractColour(colour);
+                            int red = colours[0];
+                            int green = colours[1];
+                            int blue = colours[2];
 
                             //Draw a point with our point method
                             buffer.point(xc, yc, red, green, blue);
@@ -116,9 +118,15 @@ public class Assign1 {
                             int lnflt_x2 = scanner.nextInt();
                             int lnflt_y2 = scanner.nextInt();
 
-                            red = 255; green = 0; blue = 0;
+                            //get the colour
+                            colour = scanner.next();
+                            colour = colour.replace("(", "").replace(")", "");
+                            colours = extractColour(colour);
+                            red = colours[0];
+                            green = colours[1];
+                            blue = colours[2];
 
-                            //TODO: call lineFloat method to change pixel array and update canvas
+                            // Call lineFloat method to change pixel array and update canvas
                             buffer.lineFloat(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, red, green, blue);
                             canvas.repaint();
 
@@ -164,7 +172,17 @@ public class Assign1 {
             } catch (IOException e) {
                 System.out.println("Error: Unexpected IO exception encountered");
             }
-
         }
+    }
+    public static int[] extractColour(String colour) {
+
+        colour = colour.replace("(", "").replace(")", ""); // Remove the parentheses
+        String[] colourTokens = colour.split(","); // Split by comma
+        int[] colours = new int[3];
+        colours[0] = Integer.parseInt(colourTokens[0]); // Red
+        colours[1] = Integer.parseInt(colourTokens[1]); // Green
+        colours[2] = Integer.parseInt(colourTokens[2]); // Blue
+
+        return colours;
     }
 }
