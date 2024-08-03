@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Frame buffer class skeleton
  */
@@ -104,6 +106,25 @@ public class FrameBuffer {
 				y += stepY;
 			}
 		}
+	}
+
+	public void outline_polygon(List<int[]> vertices, int r, int g, int b) {
+
+		// Loop through all vertices
+		for (int i = 0; i < vertices.size() - 1; i++) {
+
+			int[] start = vertices.get(i);
+			int[] end = vertices.get(i + 1);
+
+			// Draw the line from start to end
+			line(start[0], start[1], end[0], end[1], r, g, b);
+		}
+
+		// Draw line from the last vertex to the first the finish up the polygon
+		int[] first = vertices.get(0);
+		int[] last = vertices.get(vertices.size() - 1);
+
+		line(last[0], last[1], first[0], first[1], r, g, b);
 	}
 
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
