@@ -133,7 +133,26 @@ public class Assign1 {
                             break;
                             
                         case "LINE":
+
+                            // Read end point values
+                            lnflt_x1 = scanner.nextInt();
+                            lnflt_y1 = scanner.nextInt();
+                            lnflt_x2 = scanner.nextInt();
+                            lnflt_y2 = scanner.nextInt();
+
+                            // Extract the colours
+                            colour = scanner.next();
+                            colours = extractColour(colour);
+                            red = colours[0];
+                            green = colours[1];
+                            blue = colours[2];
+
+                            // Call line method to change pixel array and update canvas
+                            buffer.line(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, red, green, blue);
+                            canvas.repaint();
+
                             break;
+
                         case "OUTLINE_POLYGON":
                             break;
                         case "FILL_POLYGON":

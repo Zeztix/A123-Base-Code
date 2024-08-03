@@ -62,6 +62,50 @@ public class FrameBuffer {
 		}
 	}
 
+	public void line(int x1, int y1, int x2, int y2, int r, int g, int b) {
+
+		int dx = Math.abs(x2 - x1);
+		int dy = Math.abs(y2 - y1);
+		int x = x1;
+		int y = y1;
+		int d = dx - dy;
+		int stepX, stepY;
+
+		if (x1 < x2) {
+			stepX = 1;
+		} else {
+			stepX = -1;
+		}
+
+		if (y1 < y2) {
+			stepY = 1;
+		} else {
+			stepY = -1;
+		}
+
+		// Loop to draw the line
+		while (true) {
+
+			// Plot the point
+			point(x, y, r, g, b);
+
+			// Check if the line has been completely drawn
+			if (x == x2 && y == y2) break;
+
+			int d2 = 2 * d;
+			// Adjust the d variable and step in the x direction
+			if (d2 > -dy) {
+				d -= dy;
+				x += stepX;
+			}
+			// Or adjust the d variable and step in the y direction
+			if (d2 < dx) {
+				d += dx;
+				y += stepY;
+			}
+		}
+	}
+
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];
