@@ -1,4 +1,8 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Math.min;
 
 /**
  * Frame buffer class skeleton
@@ -108,7 +112,7 @@ public class FrameBuffer {
 		}
 	}
 
-	public void outline_polygon(List<int[]> vertices, int r, int g, int b) {
+	public void outlinePolygon(List<int[]> vertices, int r, int g, int b) {
 
 		// Loop through all vertices
 		for (int i = 0; i < vertices.size() - 1; i++) {
@@ -125,6 +129,76 @@ public class FrameBuffer {
 		int[] last = vertices.get(vertices.size() - 1);
 
 		line(last[0], last[1], first[0], first[1], r, g, b);
+	}
+
+	public void fillPolygon(List<int[]> vertices, int r, int g, int b) {
+
+		// Find the bounding box of the polygon
+		int minX = vertices.get(0)[0];
+		int maxX = vertices.get(0)[0];
+		int minY = vertices.get(1)[1];
+		int maxY = vertices.get(1)[1];
+
+		// Iterate through the vertices to find the min and max values
+		for (int i = 1; i < vertices.size(); i++) {
+
+			int x = vertices.get(i)[0];
+			int y = vertices.get(i)[1];
+
+			if (x < minX) {
+				minX = x;
+			}
+			if (x > maxX) {
+				maxX = x;
+			}
+			if (y < minY) {
+				minY = y;
+			}
+			if (y > maxY) {
+				maxY = y;
+			}
+		}
+
+		// Fill the polygon
+		for (int y = minY; y <= maxY; y++) {
+
+			List<Integer> intersections = new ArrayList<>();
+
+			// Find the intersections
+			for (int i = 0; i < vertices.size(); i++) {
+
+				int[] start = vertices.get(i);
+				int[] end = vertices.get((i + 1) % vertices.size());
+				int x1 = start[0];
+				int y1 = start[1];
+				int x2 = end[0];
+				int y2 = end[1];
+
+				if (y1 == y2) continue; // Ignore horizontal edges
+				if (y >= Math.min(y1, y2) && y < Math.max(y1, y2)) {
+					// Calculate the x coordinate of the intersection
+					int x = x1 + (y - y1) * (x2 - x1) / (y2 - y1);
+					intersections.add(x);
+				}
+			}
+			// Sort the intersections
+			Collections.sort(intersections);
+
+			// Fill between pairs of intersections
+			for (int j = 0; j < intersections.size(); j += 2) {
+
+				if (j + 1 < intersections.size()) {
+					int startX = intersections.get(j);
+					int endX = intersections.get(j + 1);
+
+					// Loop through the x coordinates from start to end
+					for (int x = startX; x <= endX; x++) {
+						// Plot the point
+						point(x, y, r, g, b);
+					}
+				}
+			}
+		}
 	}
 
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!

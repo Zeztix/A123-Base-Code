@@ -174,12 +174,33 @@ public class Assign1 {
                             blue = colours[2];
 
                             // Call line method to change pixel array and update canvas
-                            buffer.outline_polygon(vertices, red, green, blue);
+                            buffer.outlinePolygon(vertices, red, green, blue);
                             canvas.repaint();
 
                             break;
 
                         case "FILL_POLYGON":
+
+                            vertices = new ArrayList<>();
+
+                            // Read vertices until the color string
+                            while (scanner.hasNextInt()) {
+                                int x = scanner.nextInt();
+                                int y = scanner.nextInt();
+                                vertices.add(new int[]{x, y});
+                            }
+
+                            // Extract the colours
+                            colour = scanner.next();
+                            colours = extractColour(colour);
+                            red = colours[0];
+                            green = colours[1];
+                            blue = colours[2];
+
+                            // Call line method to change pixel array and update canvas
+                            buffer.fillPolygon(vertices, red, green, blue);
+                            canvas.repaint();
+
                             break;
                         case "OUTLINE_CIRCLE":
                             break;
