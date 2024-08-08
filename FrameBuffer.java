@@ -201,6 +201,45 @@ public class FrameBuffer {
 		}
 	}
 
+	public void outlineCircle(int xc, int yc, int radius, int r, int g, int b) {
+
+		// Initial points
+		int x = 0;
+		int y = radius;
+		int d = 3 - 2 * radius;
+
+		// Plot the initial points
+		plotCirclePoints(xc, yc, x, y, r, g, b);
+
+		// Loop to calculate all points and plot them
+		while (y >= x) {
+			x++;
+
+			if (d > 0) {
+				y--;
+				d = d + 4 * (x - y) + 10;
+			}
+			else {
+				d = d + 4 * x + 6;
+			}
+
+			// Plot the points
+			plotCirclePoints(xc, yc, x, y, r, g, b);
+		}
+	}
+
+	// Function to plot points in all eight octants
+	private void plotCirclePoints(int xc, int yc, int x, int y, int r, int g, int b) {
+		point(xc + x, yc + y, r, g, b);
+		point(xc - x, yc + y, r, g, b);
+		point(xc + x, yc - y, r, g, b);
+		point(xc - x, yc - y, r, g, b);
+		point(xc + y, yc + x, r, g, b);
+		point(xc - y, yc + x, r, g, b);
+		point(xc + y, yc - x, r, g, b);
+		point(xc - y, yc - x, r, g, b);
+	}
+
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];

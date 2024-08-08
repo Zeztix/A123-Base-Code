@@ -202,8 +202,26 @@ public class Assign1 {
                             canvas.repaint();
 
                             break;
+
                         case "OUTLINE_CIRCLE":
+
+                            int x = scanner.nextInt();
+                            int y = scanner.nextInt();
+                            int r = scanner.nextInt();
+
+                            // Extract the colours
+                            colour = scanner.next();
+                            colours = extractColour(colour);
+                            red = colours[0];
+                            green = colours[1];
+                            blue = colours[2];
+
+                            // Call line method to change pixel array and update canvas
+                            buffer.outlineCircle(x, y, r, red, green, blue);
+                            canvas.repaint();
+
                             break;
+
                         case "FILL_CIRCLE":
                             break;
                         case "INVERT":
