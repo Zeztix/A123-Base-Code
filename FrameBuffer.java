@@ -25,9 +25,9 @@ public class FrameBuffer {
 
 	//A start on the point function. NOTE this is not complete!
 	public void point(int xc, int yc, int r, int g, int b) {
-		// TODO: Add point into array
+
 		// Check if the point is within the bounds of the buffer
-		if (xc >= 0 || xc < width && yc >= 0 || yc < height) {
+		if (xc >= 0 && xc < width && yc >= 0 && yc < height) {
 			// Combine RGB values
 			int colour = (r << 16) | (g << 8) | b;
 			// Set the pixel in the buffer
@@ -251,20 +251,19 @@ public class FrameBuffer {
 
 		while (y >= x) {
 
-			x++;
-
 			// Draw horizontal lines to fill the circle
 			line(xc - x, yc + y, xc + x, yc + y, r, g, b);
 			line(xc - x, yc - y, xc + x, yc - y, r, g, b);
 			line(xc - y, yc + x, xc + y, yc + x, r, g, b);
 			line(xc - y, yc - x, xc + y, yc - x, r, g, b);
 
+			x++;
+
 			// Update the decision variable and coordinates
 			if (d > 0) {
 				y--;
 				d = d + 4 * (x - y) + 10;
-			}
-			else {
+			} else {
 				d = d + 4 * x + 6;
 			}
 		}
