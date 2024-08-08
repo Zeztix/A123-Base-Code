@@ -105,8 +105,10 @@ public class Assign1 {
                             int green = colours[1];
                             int blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             //Draw a point with our point method
-                            buffer.point(xc, yc, red, green, blue);
+                            buffer.point(xc, yc, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             System.out.println("Drawing point: (" + xc + "," + yc + "R=" + red + " G="+green + " B="+blue + ")");
@@ -128,8 +130,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call lineFloat method to change pixel array and update canvas
-                            buffer.lineFloat(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, red, green, blue);
+                            buffer.lineFloat(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -149,8 +153,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call line method to change pixel array and update canvas
-                            buffer.line(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, red, green, blue);
+                            buffer.line(lnflt_x1, lnflt_y1, lnflt_x2, lnflt_y2, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -173,8 +179,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call line method to change pixel array and update canvas
-                            buffer.outlinePolygon(vertices, red, green, blue);
+                            buffer.outlinePolygon(vertices, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -197,8 +205,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call line method to change pixel array and update canvas
-                            buffer.fillPolygon(vertices, red, green, blue);
+                            buffer.fillPolygon(vertices, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -216,8 +226,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call line method to change pixel array and update canvas
-                            buffer.outlineCircle(x, y, r, red, green, blue);
+                            buffer.outlineCircle(x, y, r, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -235,8 +247,10 @@ public class Assign1 {
                             green = colours[1];
                             blue = colours[2];
 
+                            colours = checkColourRange(red, green, blue);
+
                             // Call line method to change pixel array and update canvas
-                            buffer.fillCircle(x, y, r, red, green, blue);
+                            buffer.fillCircle(x, y, r, colours[0], colours[1], colours[2]);
                             canvas.repaint();
 
                             break;
@@ -281,6 +295,18 @@ public class Assign1 {
         colours[0] = Integer.parseInt(colourTokens[0]); // Red
         colours[1] = Integer.parseInt(colourTokens[1]); // Green
         colours[2] = Integer.parseInt(colourTokens[2]); // Blue
+
+        return colours;
+    }
+
+    public static int[] checkColourRange(int red, int green, int blue) {
+
+        int[] colours = new int[3];
+
+        // Ensure colour values are within the valid range
+        colours[0] = Math.min(255, Math.max(0, red));
+        colours[1] = Math.min(255, Math.max(0, green));
+        colours[2] = Math.min(255, Math.max(0, blue));
 
         return colours;
     }
