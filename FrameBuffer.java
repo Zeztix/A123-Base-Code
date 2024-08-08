@@ -213,8 +213,10 @@ public class FrameBuffer {
 
 		// Loop to calculate all points and plot them
 		while (y >= x) {
+
 			x++;
 
+			// Update the decision variable and coordinates
 			if (d > 0) {
 				y--;
 				d = d + 4 * (x - y) + 10;
@@ -238,6 +240,34 @@ public class FrameBuffer {
 		point(xc - y, yc + x, r, g, b);
 		point(xc + y, yc - x, r, g, b);
 		point(xc - y, yc - x, r, g, b);
+	}
+
+	public void fillCircle(int xc, int yc, int radius, int r, int g, int b) {
+
+		// Initial points
+		int x = 0;
+		int y = radius;
+		int d = 3 - 2 * radius;
+
+		while (y >= x) {
+
+			x++;
+
+			// Draw horizontal lines to fill the circle
+			line(xc - x, yc + y, xc + x, yc + y, r, g, b);
+			line(xc - x, yc - y, xc + x, yc - y, r, g, b);
+			line(xc - y, yc + x, xc + y, yc + x, r, g, b);
+			line(xc - y, yc - x, xc + y, yc - x, r, g, b);
+
+			// Update the decision variable and coordinates
+			if (d > 0) {
+				y--;
+				d = d + 4 * (x - y) + 10;
+			}
+			else {
+				d = d + 4 * x + 6;
+			}
+		}
 	}
 
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!

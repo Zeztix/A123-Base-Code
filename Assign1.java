@@ -223,7 +223,24 @@ public class Assign1 {
                             break;
 
                         case "FILL_CIRCLE":
+
+                            x = scanner.nextInt();
+                            y = scanner.nextInt();
+                            r = scanner.nextInt();
+
+                            // Extract the colours
+                            colour = scanner.next();
+                            colours = extractColour(colour);
+                            red = colours[0];
+                            green = colours[1];
+                            blue = colours[2];
+
+                            // Call line method to change pixel array and update canvas
+                            buffer.fillCircle(x, y, r, red, green, blue);
+                            canvas.repaint();
+
                             break;
+
                         case "INVERT":
                         	break;
                         case "PAUSE":
