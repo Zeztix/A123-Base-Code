@@ -69,3 +69,6 @@ PAUSE 400
 # even though they have multiple spaces and inconsistent formatting!
 POINT 250 250 (90,100 ,255)#Thisisacomment
 POINT -250 -250 ( 90, 100 , 255)#This is a comment
+
+# Load the saved file
+LOAD_BMP sample1.bmp

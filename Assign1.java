@@ -1,8 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -257,6 +257,7 @@ public class Assign1 {
 
                         case "INVERT":
                         	break;
+
                         case "PAUSE":
                             int millis = scanner.nextInt();
                             System.out.println("Pause: " + millis + " milliseconds");
@@ -267,12 +268,23 @@ public class Assign1 {
                                 e.printStackTrace();
                             }
                             break;
+
                         case "SAVE":
                             String fileName = scanner.next();
                             canvas.save(fileName);
                             System.out.println("Saving file:" + fileName);
 
                             break;
+
+                        case "LOAD_BMP":
+
+                            String loadFileName = scanner.next();
+                            loadFile(loadFileName, buffer, canvas);
+                            canvas.repaint();
+                            System.out.println("Loading BMP File: " + loadFileName);
+
+                            break;
+
                         default:
                             System.out.println("Unknown command at line:  " + lineNumber);
                     }
@@ -309,5 +321,36 @@ public class Assign1 {
         colours[2] = Math.min(255, Math.max(0, blue));
 
         return colours;
+    }
+
+    public static void loadFile(String fileName, FrameBuffer buffer, Canvas canvas) {
+
+        try {
+            // Load the BMP file
+            BufferedImage image = ImageIO.read(new File(fileName));
+
+            // Get the image dimensions
+            int width = image.getWidth();
+            int height = image.getHeight();
+
+            // Initialise the pixel buffer
+            if (buffer.getPixels() == null || width != buffer.getWidth() || height != buffer.getHeight()) {
+                buffer = new FrameBuffer(width, height);
+            }
+
+            // Draw the entire image directly to the canvas
+            Graphics g = canvas.getGraphics();
+            g.drawImage(image, 0, 0, null);
+
+            // Access the pixel data manually
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    buffer.getPixels()[y * width + + x] = image.getRGB(x, y);
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Error loading BMP file: " + e.getMessage());
+        }
     }
 }
