@@ -18,6 +18,7 @@ public class FrameBuffer {
 	private int[] pixels;
 	private int width;
 	private int height;
+	private int scrollOffset = 0;
 
 	//Set up memory for pixel data
 	public FrameBuffer(int width, int height) {
@@ -304,5 +305,37 @@ public class FrameBuffer {
 
 	public int[] getPixels() {
 		return pixels;
+	}
+
+	public void scrollLeft() {
+		if (scrollOffset > 0) {
+			scrollOffset -= 10; // Scroll 10 pixels
+		}
+	}
+
+	public void scrollRight() {
+		if (scrollOffset < width - getWidth()) {
+			scrollOffset += 10;
+		}
+	}
+
+	public int[] getVisiblePixels() {
+		// Return the visible part of the pixel buffer
+		int[] visiblePixels = new int[getWidth() * height];
+		System.arraycopy(pixels, scrollOffset, visiblePixels, 0, getWidth() * height);
+		return visiblePixels;
+	}
+
+	public void renderVisibleArea(int offsetX, int offsetY) {
+		// Assuming offsetX and offsetY are the current scroll offsets
+		for (int y = 0; y < getHeight(); y++) {
+			for (int x = 0; x < getWidth(); x++) {
+				int actualX = x + offsetX;
+				int actualY = y + offsetY;
+				if (actualX >= 0 && actualX < width && actualY >= 0 && actualY < height) {
+					point(x, y, 0, 0, 0);  // Method to draw on the actual canvas
+				}
+			}
+		}
 	}
 }

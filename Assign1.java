@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Assign1 {
 
-
     public static void main(String[] args) {
 
 	System.out.println("Starting 2D engine...");
@@ -17,6 +16,7 @@ public class Assign1 {
         FrameBuffer buffer = null;
         MainCanvas canvas = null;
         JFrame frame = null;
+        KeyPress keyPress = null;
 
         //Tools to read command line and text file instructions
         BufferedReader reader = null;
@@ -87,6 +87,11 @@ public class Assign1 {
                             frame.setSize(width, height);
                             frame.add(canvas);
                             frame.setTitle("Assign1");
+
+                            // Initialize the KeyPress handler
+                            keyPress = new KeyPress(buffer, canvas);
+                            frame.addKeyListener(keyPress);
+
                             frame.setVisible(true);
 
                             System.out.println("Creating canvas, frame and buffer of size " + width + "x" + height);
@@ -299,6 +304,7 @@ public class Assign1 {
             }
         }
     }
+
     public static int[] extractColour(String colour) {
 
         colour = colour.replace("(", "").replace(")", ""); // Remove the parentheses
