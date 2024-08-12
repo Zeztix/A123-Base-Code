@@ -36,7 +36,7 @@ public class MainCanvas extends Canvas {
 	public void save(String fileName) {
 		try {
 			JLabel messageLabel = new JLabel("Would you like to save the visible size or the entire extended buffer?");
-			JLabel noteLabel = new JLabel("<html><br><i>Note: Choose extended size if you'd like to see everything.</i></html>");
+			JLabel noteLabel = new JLabel("<html><br><i>Note: Choose extended size if you'd like to see everything (it's also more reliable).</i></html>");
 
 			// Add a popup for the user to choose desired save size
 			Object[] options = {"Visible Size", "Extended Buffer Size"};
