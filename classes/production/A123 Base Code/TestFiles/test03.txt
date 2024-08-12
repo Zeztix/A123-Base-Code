@@ -1,3 +1,6 @@
+# Basic playable game scene, the code is pretty poor in terms of OOP
+# It's most likely capable of working just the same if you'd create separate character, obstacle classes.
+
 INIT 500 500
 
 # Ensures there a space at the end, so it is read

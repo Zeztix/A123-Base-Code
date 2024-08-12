@@ -21,12 +21,14 @@ public class FrameBuffer {
 	private int height;
 	private int scrollOffset = 0;
 	private boolean scrollEnabled = false;
+	private List<int[]> obstacles;
 
 	//Set up memory for pixel data
 	public FrameBuffer(int visibleWidth, int visibleHeight) {
 		this.width = visibleWidth;
 		this.height = visibleHeight;
 		this.pixels = new int[width * height];
+		obstacles = defineObstacleCollisions();
 	}
 
 	public void enableScrolling() {
@@ -386,16 +388,34 @@ public class FrameBuffer {
 		// Draw the filled square using fillPolygon
 		fillPolygon(vertices, r, g, b);
 
-		// Define the obstacle's position and size
-		int obsX = 300;
-		int obsY = 200;
-		int obsWidth = 50;
-		int obsHeight = 150;
+		boolean collision = false;
 
-		boolean collision = checkCollision(topLeftX, topLeftY, size, obsX, obsY, obsWidth, obsHeight);
-		if (collision) {
-			scrollEnabled = false;
+		for (int[] obstacle : obstacles) {
+			int obsX = obstacle[0];
+			int obsY = obstacle[1];
+			int obsWidth = obstacle[2];
+			int obsHeight = obstacle[3];
+
+			// Check for the collision
+			collision = checkCollision(topLeftX, topLeftY, size, obsX, obsY, obsWidth, obsHeight);
+			if (collision) {
+				System.out.println("Game Over!");
+				scrollEnabled = false;
+				break; // Check no more
+			}
 		}
+	}
+
+	private List<int[]> defineObstacleCollisions() {
+
+		List<int[]> obstacles = new ArrayList<>();
+
+		// Define each obstacle's position and size (x, y, width, height)
+		obstacles.add(new int[]{300, 200, 50, 150}); // Example obstacle 1
+		obstacles.add(new int[]{500, 370, 50, 80}); // Example obstacle 2
+		obstacles.add(new int[]{700, 390, 30, 60}); // Example obstacle 3
+
+		return obstacles;
 	}
 
 	public boolean checkCollision(int charX, int charY, int charSize, int obsX, int obsY, int obsWidth, int obsHeight) {
