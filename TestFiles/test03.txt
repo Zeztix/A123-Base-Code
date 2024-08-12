@@ -1,7 +1,7 @@
 INIT 500 500
 
 # Ensures there a space at the end, so it is read
-SIDE_SCROLL
+SIDE_SCROLL # Add the space
 
 # Background color
 FILL_POLYGON 0 0 999 0 999 499 0 499 (135,206,250,255) # Sky blue background
@@ -9,12 +9,12 @@ FILL_POLYGON 0 0 999 0 999 499 0 499 (135,206,250,255) # Sky blue background
 # Ground level
 FILL_POLYGON 0 450 1000 450 1000 500 0 500 (34,139,34,255) # Green ground
 
-# Obstacle 1 (a small box)
-FILL_POLYGON 700 400 740 400 740 450 700 450 (139,69,19,255) # Brown obstacle
+# Obstacle 1
+FILL_POLYGON 300 200 340 200 340 450 300 450 (139,69,19,255) # Brown obstacle
 
 # Obstacle 2 (a larger box)
-FILL_POLYGON 850 370 900 370 900 450 850 450 (139,69,19,255) # Brown obstacle
+FILL_POLYGON 550 370 500 370 500 450 550 450 (139,69,19,255) # Brown obstacle
 
 # Obstacle 3 (a medium box)
-FILL_POLYGON 950 390 980 390 980 450 950 450 (139,69,19,255) # Brown obstacle
+FILL_POLYGON 750 390 780 390 780 450 750 450 (139,69,19,255) # Brown obstacle
 

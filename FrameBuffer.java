@@ -333,6 +333,7 @@ public class FrameBuffer {
 		// Do not allow scrolling to the negatives
 		if (scrollOffset > 0) {
 			scrollOffset -= 10;
+			drawCharacter(20, 255, 0, 0);
 		}
 	}
 
@@ -340,6 +341,7 @@ public class FrameBuffer {
 		// Check that the scroll is within the extended buffer
 		if (scrollOffset < width / 2) {
 			scrollOffset += 10;
+			drawCharacter(20, 255, 0, 0);
 		}
 	}
 
@@ -360,5 +362,44 @@ public class FrameBuffer {
 				}
 			}
 		}
+	}
+
+	public void drawCharacter(int size, int r, int g, int b) {
+
+		// Center of the visible area
+		int centerX = width / 4 + scrollOffset;
+		int posY = height / 2;
+
+		// Coordinates for the square
+		int topLeftX = centerX - size / 2;
+		int topLeftY = posY - size / 2;
+		int bottomRightX = centerX + size / 2;
+		int bottomRightY = posY + size / 2;
+
+		// Create the vertices list
+		List<int[]> vertices = new ArrayList<>();
+		vertices.add(new int[] {topLeftX, topLeftY});       // Top-left corner
+		vertices.add(new int[] {bottomRightX, topLeftY});    // Top-right corner
+		vertices.add(new int[] {bottomRightX, bottomRightY});// Bottom-right corner
+		vertices.add(new int[] {topLeftX, bottomRightY});    // Bottom-left corner
+
+		// Draw the filled square using fillPolygon
+		fillPolygon(vertices, r, g, b);
+
+		// Define the obstacle's position and size
+		int obsX = 300;
+		int obsY = 200;
+		int obsWidth = 50;
+		int obsHeight = 150;
+
+		boolean collision = checkCollision(topLeftX, topLeftY, size, obsX, obsY, obsWidth, obsHeight);
+		if (collision) {
+			scrollEnabled = false;
+		}
+	}
+
+	public boolean checkCollision(int charX, int charY, int charSize, int obsX, int obsY, int obsWidth, int obsHeight) {
+		return (charX < obsX + obsWidth && charX + charSize > obsX &&
+				charY < obsY + obsHeight && charY + charSize > obsY);
 	}
 }
