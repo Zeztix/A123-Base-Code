@@ -15,13 +15,13 @@ public class KeyPress extends Canvas implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
+        // Check the key pressed
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             System.out.println("Moving Left");
         }
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             System.out.println("Moving Right");
         }
-        buffer.renderVisibleArea(5, 5);
     }
 
     @Override

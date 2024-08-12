@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ public class FrameBuffer {
 	private int[] pixels;
 	private int width;
 	private int height;
-	private int scrollOffset = 0;
 
 	//Set up memory for pixel data
 	public FrameBuffer(int width, int height) {
@@ -59,8 +59,10 @@ public class FrameBuffer {
 		// Ensure it always iterates from left to right
 		if (x1 > x2) {
 			int tempX = x1, tempY = y1;
-			x1 = x2; y1 = y2;
-			x2 = tempX; y2 = tempY;
+			x1 = x2;
+			y1 = y2;
+			x2 = tempX;
+			y2 = tempY;
 		}
 
 		float m = (y2 - y1) / (x2 - x1); // Calculate the slope
@@ -224,8 +226,7 @@ public class FrameBuffer {
 			if (d > 0) {
 				y--;
 				d = d + 4 * (x - y) + 10;
-			}
-			else {
+			} else {
 				d = d + 4 * x + 6;
 			}
 
@@ -305,37 +306,5 @@ public class FrameBuffer {
 
 	public int[] getPixels() {
 		return pixels;
-	}
-
-	public void scrollLeft() {
-		if (scrollOffset > 0) {
-			scrollOffset -= 10; // Scroll 10 pixels
-		}
-	}
-
-	public void scrollRight() {
-		if (scrollOffset < width - getWidth()) {
-			scrollOffset += 10;
-		}
-	}
-
-	public int[] getVisiblePixels() {
-		// Return the visible part of the pixel buffer
-		int[] visiblePixels = new int[getWidth() * height];
-		System.arraycopy(pixels, scrollOffset, visiblePixels, 0, getWidth() * height);
-		return visiblePixels;
-	}
-
-	public void renderVisibleArea(int offsetX, int offsetY) {
-		// Assuming offsetX and offsetY are the current scroll offsets
-		for (int y = 0; y < getHeight(); y++) {
-			for (int x = 0; x < getWidth(); x++) {
-				int actualX = x + offsetX;
-				int actualY = y + offsetY;
-				if (actualX >= 0 && actualX < width && actualY >= 0 && actualY < height) {
-					point(x, y, 0, 0, 0);  // Method to draw on the actual canvas
-				}
-			}
-		}
 	}
 }
