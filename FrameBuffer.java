@@ -19,6 +19,7 @@ public class FrameBuffer {
 	private int[] pixels;
 	private int width;
 	private int height;
+	private int posY = 250; // Hardcoded assuming height is 500px
 	private int scrollOffset = 0;
 	private boolean scrollEnabled = false;
 	private List<int[]> obstacles;
@@ -347,6 +348,17 @@ public class FrameBuffer {
 		}
 	}
 
+	public void moveCharacterUp() {
+		// TODO: Add a screen bound check
+		posY -= 10;
+		drawCharacter(20, 255, 0, 0);
+	}
+
+	public void moveCharacterDown() {
+		posY += 10;
+		drawCharacter(20, 255, 0, 0);
+	}
+
 	public void drawVisibleArea(Graphics g) {
 
 		// Iterate over the height
@@ -370,7 +382,6 @@ public class FrameBuffer {
 
 		// Center of the visible area
 		int centerX = width / 4 + scrollOffset;
-		int posY = height / 2;
 
 		// Coordinates for the square
 		int topLeftX = centerX - size / 2;

@@ -26,6 +26,14 @@ public class KeyPress extends Canvas implements KeyListener {
                 System.out.println("Moving Right");
                 buffer.scrollRight();
             }
+            else if (e.getKeyCode() == KeyEvent.VK_UP) {
+                System.out.println("Moving Up");
+                buffer.moveCharacterUp();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                buffer.moveCharacterDown();
+                System.out.println("Moving Down");
+            }
         canvas.repaint();
         }
     }
