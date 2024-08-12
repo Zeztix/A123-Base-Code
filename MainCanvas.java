@@ -28,8 +28,9 @@ public class MainCanvas extends Canvas {
 	//Need to override the paint function to use our own frame buffer pixels
 	@Override
 		public void paint(Graphics g){
-			image.setRGB(0, 0, width, height, this.buffer.getPixels(), 0, width);
-			g.drawImage(image, 0, 0, width, height, this);
+			buffer.drawVisibleArea(g);
+//			image.setRGB(0, 0, width, height, this.buffer.getPixels(), 0, width);
+//			g.drawImage(image, 0, 0, width, height, this);
 		}
 
 	//Save function so we can store the output

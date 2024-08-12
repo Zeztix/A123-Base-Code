@@ -19,11 +19,12 @@ public class FrameBuffer {
 	private int[] pixels;
 	private int width;
 	private int height;
+	private int scrollOffset = 0;
 
 	//Set up memory for pixel data
-	public FrameBuffer(int width, int height) {
-		this.width = width;
-		this.height = height;
+	public FrameBuffer(int visibleWidth, int visibleHeight) {
+		this.width = visibleWidth * 2; // Expand
+		this.height = visibleHeight;
 		this.pixels = new int[width * height];
 	}
 
@@ -306,5 +307,38 @@ public class FrameBuffer {
 
 	public int[] getPixels() {
 		return pixels;
+	}
+
+	public void scrollLeft() {
+		// Do not allow scrolling to the negatives
+		if (scrollOffset > 0) {
+			scrollOffset -= 10;
+		}
+	}
+
+	public void scrollRight() {
+		// Check that the scroll is within the extended buffer
+		if (scrollOffset < width / 2) {
+			scrollOffset += 10;
+		}
+	}
+
+	public void drawVisibleArea(Graphics g) {
+
+		// Iterate over the height
+		for (int y = 0; y < height; y++) {
+			// Only draw the visible width
+			for (int x = 0; x < width / 2; x++) {
+
+				int actualX = x + scrollOffset;
+
+				// Only draw if the actual width is within the bounds
+				if (actualX >= 0 && actualX < width) {
+					int pixel = pixels[y * width + actualX];
+					g.setColor(new Color(pixel));
+					g.drawRect(x, y, 1, 1); // Draw each pixel
+				}
+			}
+		}
 	}
 }
