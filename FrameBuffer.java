@@ -349,7 +349,7 @@ public class FrameBuffer {
 	}
 
 	public void moveCharacterUp() {
-		// TODO: Add a screen bound check
+		// TODO: Add a screen bounds check
 		posY -= 10;
 		drawCharacter(20, 255, 0, 0);
 	}
@@ -415,6 +415,11 @@ public class FrameBuffer {
 				break; // Check no more
 			}
 		}
+
+		// Check if the player has reached the end
+		if (centerX >= (width + scrollOffset) / 2) {
+			System.out.println("You Win!");
+		}
 	}
 
 	private List<int[]> defineObstacleCollisions() {
@@ -422,9 +427,12 @@ public class FrameBuffer {
 		List<int[]> obstacles = new ArrayList<>();
 
 		// Define each obstacle's position and size (x, y, width, height)
-		obstacles.add(new int[]{300, 200, 50, 150}); // Example obstacle 1
-		obstacles.add(new int[]{500, 370, 50, 80}); // Example obstacle 2
-		obstacles.add(new int[]{700, 390, 30, 60}); // Example obstacle 3
+		obstacles.add(new int[]{300, 200, 50, 250}); // Obstacle 1 Bottom
+		obstacles.add(new int[]{300, 0, 50, 150}); // Obstacle 1 Top
+		obstacles.add(new int[]{400, 370, 50, 30}); // Obstacle 2 Bottom
+		obstacles.add(new int[]{400, 0, 50, 350}); // Obstacle 2 Top
+		obstacles.add(new int[]{500, 200, 50, 250}); // Obstacle 3 Bottom
+		obstacles.add(new int[]{500, 0, 50, 180}); // Obstacle 3 Top
 
 		return obstacles;
 	}
