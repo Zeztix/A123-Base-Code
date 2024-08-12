@@ -1,0 +1,45 @@
+# Game scene, can be updated to actually move the character and create an actual game
+
+# Initialize a 1000x500 canvas, allowing for horizontal scrolling
+INIT 500 500
+
+# Background colour fill
+FILL_POLYGON 0 0 999 0 999 499 0 499 (135,206,250,255)
+
+# Ground level
+FILL_POLYGON 0 450 999 450 999 499 0 499 (34,139,34,255)
+
+# Platforms
+FILL_POLYGON 50 350 150 350 150 375 50 375 (139,69,19,255)
+FILL_POLYGON 300 300 400 300 400 325 300 325 (139,69,19,255)
+FILL_POLYGON 550 250 650 250 650 275 550 275 (139,69,19,255)
+FILL_POLYGON 800 200 900 200 900 225 800 225 (139,69,19,255)
+
+# Character (a simple rectangle with a head)
+FILL_POLYGON 100 400 120 400 120 450 100 450 (255,223,196,255)  # Body
+FILL_POLYGON 105 380 115 380 115 400 105 400 (255,223,196,255)  # Head
+OUTLINE_CIRCLE 110 390 5 (0,0,0,255)  # Face outline
+
+# Obstacles (Simple Boxes)
+FILL_POLYGON 200 425 225 425 225 450 200 450 (139,69,19,255)
+FILL_POLYGON 400 425 425 425 425 450 400 450 (139,69,19,255)
+FILL_POLYGON 600 425 625 425 625 450 600 450 (139,69,19,255)
+FILL_POLYGON 800 425 825 425 825 450 800 450 (139,69,19,255)
+
+# Simple Enemy (Another rectangle)
+FILL_POLYGON 350 400 370 400 370 450 350 450 (255,0,0,255)
+
+# Additional elements beyond initial viewport
+FILL_POLYGON 1100 350 1200 350 1200 375 1100 375 (139,69,19,255)  # Platform beyond visible buffer
+FILL_POLYGON 1150 425 1175 425 1175 450 1150 450 (139,69,19,255)  # Obstacle beyond visible buffer
+FILL_POLYGON 1050 400 1070 400 1070 450 1050 450 (255,223,196,255)  # Character beyond visible buffer
+
+# Additional elements to test the buffer rendering and scrolling
+LINE_FLOAT 50 200 950 200 (0,0,0,255)  # A long horizontal line across the level
+LINE_FLOAT 500 0 500 499 (0,0,0,255)   # A vertical divider line in the middle
+
+# Enable side scrolling
+SIDE_SCROLL
+
+# Finally, save the canvas to a BMP file to check the rendering
+SAVE game.bmp
