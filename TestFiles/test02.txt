@@ -38,5 +38,8 @@ FILL_POLYGON 1050 400 1070 400 1070 450 1050 450 (255,223,196,255)  # Character 
 LINE_FLOAT 50 200 950 200 (0,0,0,255)  # A long horizontal line across the level
 LINE_FLOAT 500 0 500 499 (0,0,0,255)   # A vertical divider line in the middle
 
+# Enable side scrolling
+SIDE_SCROLL
+
 # Finally, save the canvas to a BMP file to check the rendering
 SAVE game.bmp

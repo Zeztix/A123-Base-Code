@@ -263,6 +263,14 @@ public class Assign1 {
                         case "INVERT":
                         	break;
 
+                        case "SIDE_SCROLL":
+
+                            // Enable the scrolling (simply 2x buffer size)
+                            buffer.enableScrolling();
+                            canvas.repaint();
+
+                            break;
+
                         case "PAUSE":
                             int millis = scanner.nextInt();
                             System.out.println("Pause: " + millis + " milliseconds");

@@ -20,13 +20,22 @@ public class FrameBuffer {
 	private int width;
 	private int height;
 	private int scrollOffset = 0;
+	private boolean scrollEnabled = false;
 
 	//Set up memory for pixel data
 	public FrameBuffer(int visibleWidth, int visibleHeight) {
-		this.width = visibleWidth * 2; // Expand
+		this.width = visibleWidth;
 		this.height = visibleHeight;
 		this.pixels = new int[width * height];
 	}
+
+	public void enableScrolling() {
+		this.width = width * 2; // Expand
+		this.pixels = new int[width * height];
+		this.scrollEnabled = true;
+
+	}
+
 
 	//A start on the point function. NOTE this is not complete!
 	public void point(int xc, int yc, int r, int g, int b) {
@@ -316,6 +325,10 @@ public class FrameBuffer {
 		return scrollOffset;
 	}
 
+	public boolean canScroll() {
+		return scrollEnabled;
+	}
+
 	public void scrollLeft() {
 		// Do not allow scrolling to the negatives
 		if (scrollOffset > 0) {
@@ -335,7 +348,7 @@ public class FrameBuffer {
 		// Iterate over the height
 		for (int y = 0; y < height; y++) {
 			// Only draw the visible width
-			for (int x = 0; x < width / 2; x++) {
+			for (int x = 0; x < width; x++) {
 
 				int actualX = x + scrollOffset;
 
