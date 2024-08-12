@@ -44,34 +44,37 @@ public class FrameBuffer {
 
 	public void lineFloat(int x1, int y1, int x2, int y2, int r, int g, int b) {
 
-		// Check if line is vertical
-		if (x1 == x2) {
-			if (y1 > y2) {
-				int temp = y1;
-				y1 = y2;
-				y2 = temp;
-			}
-			for (int y = y1; y <= y2; y++) {
-				point(x1, y, r, g, b); // Plot vertical line
-			}
-			return;
+		// Calculate what is steep
+		boolean isSteep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
+
+		// Check x and y if the line is steep
+		if (isSteep) {
+			int temp;
+			temp = x1; x1 = y1; y1 = temp;
+			temp = x2; x2 = y2; y2 = temp;
 		}
 
 		// Ensure it always iterates from left to right
 		if (x1 > x2) {
 			int tempX = x1, tempY = y1;
-			x1 = x2;
-			y1 = y2;
-			x2 = tempX;
-			y2 = tempY;
+			x1 = x2; y1 = y2;
+			x2 = tempX; y2 = tempY;
 		}
 
-		float m = (y2 - y1) / (x2 - x1); // Calculate the slope
+		float m = (float) (y2 - y1) / (x2 - x1); // Calculate the slope
 		float c = y1 - m * x1; // Calculate y-intercept
 
+		// Iterate over the longer dimension
 		for (int x = x1; x <= x2; x++) {
 			int y = Math.round(m * x + c);
-			point(x, y, r, g, b);
+
+			// Draw with x and y swapped
+			if (isSteep) {
+				point(y, x, r, g, b);
+			}
+			else {
+				point(x, y, r, g, b); // Draw normally
+			}
 		}
 	}
 

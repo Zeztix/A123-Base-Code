@@ -1,0 +1,18 @@
+#
+#
+# Sample data file provided for testing #
+#Create a frame with 500x500 pixels (top left should be 0,0,255)
+INIT 500 500
+
+LINE_FLOAT 80 80 10 10 (255,0,0,255)
+LINE_FLOAT 80 80 15 10 (255,0,0,255)
+LINE_FLOAT 80 80 20 10 (255,0,0,255)
+LINE_FLOAT 80 80 25 10 (255,0,0,255)
+LINE_FLOAT 80 80 30 10 (255,0,0,255)
+LINE_FLOAT 80 80 35 10 (255,0,0,255)
+LINE_FLOAT 80 80 40 10 (255,0,0,255)
+LINE_FLOAT 80 80 45 10 (255,0,0,255)
+
+
+# Load the saved file
+save_BMP test1.bmp
