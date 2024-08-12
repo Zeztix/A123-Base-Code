@@ -290,6 +290,35 @@ public class FrameBuffer {
 		}
 	}
 
+	public void invert(int x1, int y1, int x2, int y2) {
+
+		// Calculate the bounding box
+		int startX = Math.min(x1, x2);
+		int endX = Math.max(x1, x2);
+		int startY = Math.min(y1, y2);
+		int endY = Math.max(y1, y2);
+
+		// Loop through the specified area
+		for (int y = startY; y <= endY; y++) {
+			for (int x = startX; x <= endX; x++) {
+
+				int index = y * width + x;
+				int p = pixels[index];
+
+				// Extract the RGB components
+				int r = (p >> 16) & 0xFF;
+				int g = (p >> 8) & 0xFF;
+				int b = p & 0xFF;
+
+				// Invert the colour
+				int invertedColour = (255 - r) << 16 | (255 - g) << 8 | (255 - b);
+
+				// Update the pixel
+				pixels[index] = invertedColour;
+			}
+		}
+	}
+
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];

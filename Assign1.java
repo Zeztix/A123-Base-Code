@@ -261,6 +261,15 @@ public class Assign1 {
                             break;
 
                         case "INVERT":
+
+                            int x1 = scanner.nextInt();
+                            int y1 = scanner.nextInt();
+                            int x2 = scanner.nextInt();
+                            int y2 = scanner.nextInt();
+
+                            buffer.invert(x1, y1, x2, y2);
+                            canvas.repaint();
+
                         	break;
 
                         case "SIDE_SCROLL":
