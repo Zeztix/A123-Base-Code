@@ -312,6 +312,10 @@ public class FrameBuffer {
 		return pixels;
 	}
 
+	public int getScrollOffset() {
+		return scrollOffset;
+	}
+
 	public void scrollLeft() {
 		// Do not allow scrolling to the negatives
 		if (scrollOffset > 0) {
