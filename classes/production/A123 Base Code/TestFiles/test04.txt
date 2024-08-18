@@ -1,0 +1,64 @@
+# Initialize the canvas
+INIT 500 500
+
+# Fill the background with a gradient effect using polygons
+FILL_POLYGON 0 0 499 0 499 100 0 100 (0,0,0,255) Black Top
+FILL_POLYGON 0 100 499 100 499 200 0 200 (173,216,230,255) # Lighter Blue
+FILL_POLYGON 0 200 499 200 499 300 0 300 (224,255,255,255) # Pale Blue
+FILL_POLYGON 0 300 499 300 499 400 0 400 (240,255,240,255) # Pale Green
+FILL_POLYGON 0 400 499 400 499 499 0 499 (152,251,152,255) # Light Green
+PAUSE 250
+
+# Draw the sun in the top-right corner
+FILL_CIRCLE 449 151 50 (255,223,0,255) # Yellow Sun
+OUTLINE_CIRCLE 449 151 50 (255,140,0,255) # Orange Outline
+PAUSE 250
+
+# Draw sun rays
+LINE 489 151 519 151 (255,223,0,255)  # Right ray
+LINE 409 151 379 151 (255,223,0,255)  # Left ray
+LINE 449 191 449 221 (255,223,0,255)  # Bottom ray
+LINE 449 111 449 81  (255,223,0,255)  # Top ray
+LINE 479 181 509 211 (255,223,0,255)  # Bottom right ray
+LINE 419 121 389 91  (255,223,0,255)  # Top left ray
+LINE 419 181 389 211 (255,223,0,255)  # Bottom left ray
+LINE 479 121 509 91  (255,223,0,255)  # Top right ray
+
+# Draw a tree using polygons and circles
+FILL_POLYGON 150 400 170 400 170 450 150 450 (139,69,19,255) # Tree Trunk
+FILL_CIRCLE 160 370 30 (34,139,34,255) # Tree Canopy
+FILL_CIRCLE 140 390 20 (34,139,34,255) # Lower Left Canopy
+FILL_CIRCLE 180 390 20 (34,139,34,255) # Lower Right Canopy
+PAUSE 250
+
+# Draw a house with a roof using polygons
+FILL_POLYGON 300 300 400 300 400 400 300 400 (210,180,140,255) # House Body
+FILL_POLYGON 300 300 350 250 400 300 (165,42,42,255) # Roof
+PAUSE 250
+
+# Add windows and a door to the house
+FILL_POLYGON 320 320 340 320 340 340 320 340 (173,216,230,255) # Left Window
+FILL_POLYGON 360 320 380 320 380 340 360 340 (173,216,230,255) # Right Window
+FILL_POLYGON 340 350 360 350 360 400 340 400 (139,69,19,255) # Door
+PAUSE 250
+
+# Draw a pathway to the house using line_float
+LINE_FLOAT 350 400 350 499 (105,105,105,255) # Pathway
+LINE_FLOAT 340 400 340 499 (105,105,105,255) # Pathway Border Left
+LINE_FLOAT 360 400 360 499 (105,105,105,255) # Pathway Border Right
+PAUSE 250
+
+# Add some random stars in the sky using points
+POINT 50 50 (255,255,0,255) # Yellow Star
+POINT 75 80 (255,255,0,255) # Yellow Star
+POINT 100 20 (255,255,0,255) # Yellow Star
+POINT 150 70 (255,255,0,255) # Yellow Star
+POINT 200 50 (255,255,0,255) # Yellow Star
+PAUSE 250
+
+# Invert the coloUr of the house and tree trunk for a negative effect
+INVERT 150 350 400 450
+PAUSE 250
+
+# Save the scene
+SAVE test04.bmp
