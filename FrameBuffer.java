@@ -319,6 +319,25 @@ public class FrameBuffer {
 		}
 	}
 
+	public void tint(int tintR, int tintG, int tintB) {
+
+		// Loop through all the pixels
+		for (int i = 0; i < pixels.length; i++) {
+
+			int colour = pixels[i];
+			int r = (colour >> 16) & 0xFF;
+			int g = (colour >> 8) & 0xFF;
+			int b = colour & 0xFF;
+
+			// Apply the tint
+			r = Math.max(0, r - tintR);
+			g = Math.max(0, g - tintG);
+			b = Math.max(0, b - tintB);
+
+			pixels[i] = (r << 16) | (g << 8) | b;
+		}
+	}
+
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];

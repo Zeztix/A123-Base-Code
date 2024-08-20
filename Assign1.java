@@ -272,6 +272,17 @@ public class Assign1 {
 
                         	break;
 
+                        case "TINT":
+
+                            r = scanner.nextInt();
+                            int g = scanner.nextInt();
+                            int b = scanner.nextInt();
+
+                            buffer.tint(r, g, b);
+                            canvas.repaint();
+
+                            break;
+
                         case "SIDE_SCROLL":
 
                             // Enable the scrolling (simply 2x buffer size)
