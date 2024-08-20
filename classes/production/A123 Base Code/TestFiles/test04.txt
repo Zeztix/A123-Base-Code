@@ -56,8 +56,16 @@ POINT 150 70 (255,255,0,255) # Yellow Star
 POINT 200 50 (255,255,0,255) # Yellow Star
 PAUSE 250
 
-# Invert the coloUr of the house and tree trunk for a negative effect
+# Invert the colour of the house and tree trunk for a negative effect
 INVERT 150 350 400 450
+PAUSE 250
+
+# Tint to make the screen darker (Higher value means darker tint)
+TINT 150 150 150
+PAUSE 250
+
+# Blur (higher value will blur more)
+BLUR 5
 PAUSE 250
 
 # Save the scene

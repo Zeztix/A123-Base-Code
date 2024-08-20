@@ -338,6 +338,48 @@ public class FrameBuffer {
 		}
 	}
 
+	public void blur(int radius) {
+
+		// Store the pixels in a temporary array
+		int[] tempPixels = new int[pixels.length];
+
+		// Loop through the pixels
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+
+				int avgR = 0, avgG = 0, avgB = 0, count = 0;
+
+				// Loop through the pixels in the radius
+				for (int dy = -radius; dy <= radius; dy++) {
+					for (int dx = -radius; dx <= radius; dx++) {
+
+						int nx = x + dx;
+						int ny = y + dy;
+
+						// Check if the neighbouring pixel is within bounds
+						if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+
+							int colour = pixels[ny * width + nx];
+							avgR += (colour >> 16) & 0xFF;
+							avgG += (colour >> 8) & 0xFF;
+							avgB += colour & 0xFF;
+							count++;
+						}
+					}
+				}
+				// Calculate the average colour for the current pixel
+				avgR /= count;
+				avgG /= count;
+				avgB /= count;
+
+				// Store the blurred pixel in the temporary array
+				tempPixels[y * width + x] = (avgR << 16) | (avgG << 8) | avgB;
+			}
+		}
+		// Replace the original pixels with the blurred pixels
+		pixels = tempPixels;
+	}
+
 	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];

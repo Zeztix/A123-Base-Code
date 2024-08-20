@@ -283,6 +283,15 @@ public class Assign1 {
 
                             break;
 
+                        case "BLUR":
+
+                            int radius = scanner.nextInt();
+
+                            buffer.blur(radius);
+                            canvas.repaint();
+
+                            break;
+
                         case "SIDE_SCROLL":
 
                             // Enable the scrolling (simply 2x buffer size)

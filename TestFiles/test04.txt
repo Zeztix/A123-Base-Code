@@ -64,5 +64,9 @@ PAUSE 250
 TINT 150 150 150
 PAUSE 250
 
+# Blur (higher value will increase blur intensity)
+BLUR 5
+PAUSE 250
+
 # Save the scene
 SAVE test04.bmp
