@@ -1,0 +1,83 @@
+Self-Assessment:
+
+[5 Marks] Neatly formatted code with comments explaining the operation of the code
+Estimated Marks: 2
+Comments: The code is neatly formatted with appropriate comments explaining the operation of each function and significant blocks of logic.
+
+[5 Marks] Successful compilation with no fatal errors, start up for operation and no run time errors during simple testing. (Note: code that does not compile will receive zero for the assignment)
+Estimated Marks: 5
+Comments: The code successfully compiles and runs without any fatal errors or runtime issues during testing.
+
+[5 Marks] Passing each of the commands correctly, printing the current method to the console, dealing with comments correctly. Base code is provided, you need to update to complete for all aspects.
+Estimated Marks: 5
+Comments: All commands are processed correctly, with appropriate console output and proper handling of comments.
+
+[5 Marks] POINT - Correctly drawing a point.
+Estimated Marks: 5
+Comments: The POINT command is implemented correctly, and points are drawn accurately on the canvas.
+
+[5 Marks] LINE_FLOAT – Correctly drawing a line using floating point calculation y=mx+c.
+Estimated Marks: 5
+Comments: LINE_FLOAT is implemented using the correct floating-point calculations to draw lines.
+
+[10 Marks] LINE: Correctly drawing lines using Bresenham’s algorithm.
+Estimated Marks: 10
+Comments: The LINE command is implemented using Bresenham's algorithm, and lines are drawn correctly across all tested cases.
+
+[5 Marks] OUTLINE_CIRCLE - Using the midpoint algorithm.
+Estimated Marks: 5
+Comments: The OUTLINE_CIRCLE command is implemented using the midpoint algorithm, and circles are outlined accurately.
+
+[5 Marks] FILL_CIRCLE - Using the midpoint algorithm.
+Estimated Marks: 5
+Comments: The FILL_CIRCLE command is correctly implemented using the midpoint algorithm to fill circles.
+
+[5 Marks] OUTLINE_POLYGON - Correctly drawing an outline polygon.
+Estimated Marks: 5
+Comments: OUTLINE_POLYGON is correctly implemented, and polygons are outlined as expected.
+
+[15 Marks] FILL_POLYGON – Correctly drawing a filled polygon.
+Estimated Marks: 13
+Comments: The FILL_POLYGON command is implemented and tested with various polygons, and all are filled correctly.
+
+[5 Marks] READ PIXEL COLOURS – read the red, green, and blue channels of a given pixel.
+Estimated Marks: 5
+Comments: The function to read pixel colours is implemented correctly, with accurate extraction of the RGB channels.
+
+[5 Marks] INVERT – implement the Invert image effect.
+Estimated Marks: 5
+Comments: The INVERT effect is correctly implemented, inverting colours as expected.
+
+[5 Marks] LOAD_BMP – load a bmp from file.
+Estimated Marks: 5
+Comments: BMP files are successfully loaded, and pixel data is correctly extracted and rendered.
+
+[20 Marks] SIDE_SCROLL - allowing keyboard operations to navigate a frame buffer that is larger than the display.
+Estimated Marks: 18
+Comments: The SIDE_SCROLL functionality is implemented, allowing for smooth navigation of a larger frame buffer.
+
+[5 Marks] Providing a suitably complex testing input file that challenges all the special cases for 2D rendering.
+Estimated Marks: 5
+Comments: A comprehensive test file has been provided, covering all implemented features and edge cases.
+
+[5 Marks] Supporting all functions to ensure that lines that go beyond the canvas can still be drawn showing only the visible components.
+Estimated Marks: 5
+Comments: All functions are correctly implemented to handle rendering of lines and shapes beyond the canvas bounds.
+
+[5 Marks] Self-assessment with estimated marks for each section and a status description.
+Estimated Marks: 5
+Comments: This self-assessment includes estimated marks and comments for each section, as required.
+
+[20 Marks] Up to 20 additional marks for extension features that are impressive.
+Estimated Marks: 10
+Comments: An interactive game was included, showcasing the engine's abilities. Included blur and tint commands that function correctly.
+There was also an inclusion of a saving option that allows saving an extended buffer or the normal, although the normal version is a little buggy.
+
+
+Total Estimated Marks: 118
+
+Additional Comments:
+I'm likely being a little bias and overzealous, but I think I did a good job regardless, I'd lowball the marks to around 90.
+Some things such as the side scrolling, or interactive game I'd approach differently or rather, expand on more,
+but in the scope of the assignment, it's good.
+And there may also be some small bits of code I've overlooked.
