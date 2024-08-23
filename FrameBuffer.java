@@ -15,7 +15,13 @@ public class FrameBuffer {
 	private boolean scrollEnabled = false;
 	private List<int[]> obstacles;
 
-	//Set up memory for pixel data
+	/**
+	 * Initialises the FrameBuffer with the specified visible dimensions.
+	 * Allocates memory for the pixel data and initialises the obstacle collisions.
+	 *
+	 * @param visibleWidth  The width of the visible area.
+	 * @param visibleHeight The height of the visible area.
+	 */
 	public FrameBuffer(int visibleWidth, int visibleHeight) {
 		this.width = visibleWidth;
 		this.height = visibleHeight;
@@ -23,6 +29,10 @@ public class FrameBuffer {
 		obstacles = defineObstacleCollisions();
 	}
 
+	/**
+	 * Enables side scrolling by expanding the buffer width.
+	 * Allocates additional memory for the extended pixel data.
+	 */
 	public void enableScrolling() {
 		this.width = width * 2; // Expand
 		this.pixels = new int[width * height];
@@ -30,8 +40,16 @@ public class FrameBuffer {
 
 	}
 
-
-	//A start on the point function. NOTE this is not complete!
+	/**
+	 * Plots a single point on the buffer if it is within bounds.
+	 * The colour is specified by the red, green, and blue components.
+	 *
+	 * @param xc The x-coordinate of the point.
+	 * @param yc The y-coordinate of the point.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void point(int xc, int yc, int r, int g, int b) {
 
 		// Check if the point is within the bounds of the buffer
@@ -43,8 +61,18 @@ public class FrameBuffer {
 		}
 	}
 
-	// Implement other drawing functions here...
-
+	/**
+	 * Draws a line using floating point calculations based on the equation y=mx+c.
+	 * Handles steep lines by swapping x and y coordinates, ensuring that lines are drawn from left to right.
+	 *
+	 * @param x1 The starting x-coordinate.
+	 * @param y1 The starting y-coordinate.
+	 * @param x2 The ending x-coordinate.
+	 * @param y2 The ending y-coordinate.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void lineFloat(int x1, int y1, int x2, int y2, int r, int g, int b) {
 
 		// Calculate what is steep
@@ -81,6 +109,17 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Draws a line using Bresenham's algorithm, ensuring that the line is drawn pixel by pixel.
+	 *
+	 * @param x1 The starting x-coordinate.
+	 * @param y1 The starting y-coordinate.
+	 * @param x2 The ending x-coordinate.
+	 * @param y2 The ending y-coordinate.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void line(int x1, int y1, int x2, int y2, int r, int g, int b) {
 
 		int dx = Math.abs(x2 - x1);
@@ -90,6 +129,7 @@ public class FrameBuffer {
 		int d = dx - dy;
 		int stepX, stepY;
 
+		// Determine the direction of the steps
 		if (x1 < x2) {
 			stepX = 1;
 		} else {
@@ -125,6 +165,15 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Draws the outline of a polygon by connecting a series of vertices.
+	 * The polygon is closed by drawing a line from the last vertex back to the first.
+	 *
+	 * @param vertices A list of integer arrays where each array contains the x and y coordinates of a vertex.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void outlinePolygon(List<int[]> vertices, int r, int g, int b) {
 
 		// Loop through all vertices
@@ -144,6 +193,15 @@ public class FrameBuffer {
 		line(last[0], last[1], first[0], first[1], r, g, b);
 	}
 
+	/**
+	 * Fills a polygon with a specified colour by drawing horizontal lines between the intersections of the polygon's edges.
+	 * The polygon is defined by a list of vertices, and the algorithm uses a scan-line approach to fill the area.
+	 *
+	 * @param vertices A list of integer arrays where each array contains the x and y coordinates of a vertex.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void fillPolygon(List<int[]> vertices, int r, int g, int b) {
 
 		// Find the bounding box of the polygon
@@ -214,6 +272,17 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Draws the outline of a circle using the midpoint algorithm.
+	 * The circle is drawn by plotting points in all eight octants of the circle.
+	 *
+	 * @param xc The x-coordinate of the center of the circle.
+	 * @param yc The y-coordinate of the center of the circle.
+	 * @param radius The radius of the circle.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void outlineCircle(int xc, int yc, int radius, int r, int g, int b) {
 
 		// Initial points
@@ -233,7 +302,8 @@ public class FrameBuffer {
 			if (d > 0) {
 				y--;
 				d = d + 4 * (x - y) + 10;
-			} else {
+			}
+			else {
 				d = d + 4 * x + 6;
 			}
 
@@ -242,7 +312,18 @@ public class FrameBuffer {
 		}
 	}
 
-	// Function to plot points in all eight octants
+	/**
+	 * Plots the points of a circle in all eight octants.
+	 * This method is used to reduce the amount of redundant calculations when drawing circles.
+	 *
+	 * @param xc The x-coordinate of the center of the circle.
+	 * @param yc The y-coordinate of the center of the circle.
+	 * @param x The x-offset from the center.
+	 * @param y The y-offset from the center.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	private void plotCirclePoints(int xc, int yc, int x, int y, int r, int g, int b) {
 		point(xc + x, yc + y, r, g, b);
 		point(xc - x, yc + y, r, g, b);
@@ -254,6 +335,17 @@ public class FrameBuffer {
 		point(xc - y, yc - x, r, g, b);
 	}
 
+	/**
+	 * Fills a circle using the midpoint algorithm by drawing horizontal lines between the points.
+	 * The circle is filled by connecting the points in all octants with lines.
+	 *
+	 * @param xc The x-coordinate of the center of the circle.
+	 * @param yc The y-coordinate of the center of the circle.
+	 * @param radius The radius of the circle.
+	 * @param r The red component of the colour (0-255).
+	 * @param g The green component of the colour (0-255).
+	 * @param b The blue component of the colour (0-255).
+	 */
 	public void fillCircle(int xc, int yc, int radius, int r, int g, int b) {
 
 		// Initial points
@@ -275,12 +367,22 @@ public class FrameBuffer {
 			if (d > 0) {
 				y--;
 				d = d + 4 * (x - y) + 10;
-			} else {
+			}
+			else {
 				d = d + 4 * x + 6;
 			}
 		}
 	}
 
+	/**
+	 * Inverts the colours of the pixels within a specified rectangular area.
+	 * The inversion is performed by subtracting the RGB components from 255.
+	 *
+	 * @param x1 The x-coordinate of the first corner of the rectangle.
+	 * @param y1 The y-coordinate of the first corner of the rectangle.
+	 * @param x2 The x-coordinate of the opposite corner of the rectangle.
+	 * @param y2 The y-coordinate of the opposite corner of the rectangle.
+	 */
 	public void invert(int x1, int y1, int x2, int y2) {
 
 		// Calculate the bounding box
@@ -310,6 +412,14 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Applies a tint to the entire image by subtracting the tint colour from the pixel's colour components.
+	 * The tint operation darkens the image by reducing the intensity of the RGB components.
+	 *
+	 * @param tintR The amount to subtract from the red component (0-255).
+	 * @param tintG The amount to subtract from the green component (0-255).
+	 * @param tintB The amount to subtract from the blue component (0-255).
+	 */
 	public void tint(int tintR, int tintG, int tintB) {
 
 		// Loop through all the pixels
@@ -325,22 +435,29 @@ public class FrameBuffer {
 			g = Math.max(0, g - tintG);
 			b = Math.max(0, b - tintB);
 
+			// Update the pixels with the tint
 			pixels[i] = (r << 16) | (g << 8) | b;
 		}
 	}
 
+	/**
+	 * Applies a blur effect to the entire image by averaging the colours of pixels within a specified radius.
+	 * The blur effect smooths the image by blending neighbouring pixels' colours.
+	 *
+	 * @param radius The radius of the blur effect, determining the size of the area to average.
+	 */
 	public void blur(int radius) {
 
 		// Store the pixels in a temporary array
 		int[] tempPixels = new int[pixels.length];
 
-		// Loop through the pixels
+		// Loop through the pixels to blur
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 
 				int avgR = 0, avgG = 0, avgB = 0, count = 0;
 
-				// Loop through the pixels in the radius
+				// Average the colour of neighbouring pixels within the radius
 				for (int dy = -radius; dy <= radius; dy++) {
 					for (int dx = -radius; dx <= radius; dx++) {
 
@@ -371,7 +488,13 @@ public class FrameBuffer {
 		pixels = tempPixels;
 	}
 
-	// Definitions for the getRed, getGreen and getBlue functions. NOTE these are not complete!
+	/**
+	 * Gets the red component of the colour at a specific pixel.
+	 *
+	 * @param xc The x-coordinate of the pixel.
+	 * @param yc The y-coordinate of the pixel.
+	 * @return The red component of the colour (0-255).
+	 */
 	public int getRed(int xc, int yc) {
 		int colour = pixels[yc * width + xc];
 		int red = (colour >> 16) & 0xff;
@@ -379,6 +502,13 @@ public class FrameBuffer {
 		return red;
 	}
 
+	/**
+	 * Gets the green component of the colour at a specific pixel.
+	 *
+	 * @param xc The x-coordinate of the pixel.
+	 * @param yc The y-coordinate of the pixel.
+	 * @return The green component of the colour (0-255).
+	 */
 	public int getGreen(int xc, int yc) {
 		int colour = pixels[yc * width + xc];
 		int green = (colour >> 8) & 0xff;
@@ -386,6 +516,13 @@ public class FrameBuffer {
 		return green;
 	}
 
+	/**
+	 * Gets the blue component of the colour at a specific pixel.
+	 *
+	 * @param xc The x-coordinate of the pixel.
+	 * @param yc The y-coordinate of the pixel.
+	 * @return The blue component of the colour (0-255).
+	 */
 	public int getBlue(int xc, int yc) {
 		int colour = pixels[yc * width + xc];
 		int blue = colour & 0xff;
@@ -413,6 +550,10 @@ public class FrameBuffer {
 		return scrollEnabled;
 	}
 
+	/**
+	 * Scrolls the view to the left by a fixed amount, moving the character along with it.
+	 * Scrolling stops at the left edge of the buffer.
+	 */
 	public void scrollLeft() {
 		// Do not allow scrolling to the negatives
 		if (scrollOffset > 0) {
@@ -421,6 +562,10 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Scrolls the view to the right by a fixed amount, moving the character along with it.
+	 * Scrolling stops at the right edge of the extended buffer.
+	 */
 	public void scrollRight() {
 		// Check that the scroll is within the extended buffer
 		if (scrollOffset < width / 2) {
@@ -429,6 +574,9 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Moves the character up by a fixed amount, ensuring it stays within the top bounds of the screen.
+	 */
 	public void moveCharacterUp() {
 		// Check the top screen bounds
 		if (posY - 20 > 0) {
@@ -437,6 +585,9 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Moves the character down by a fixed amount, ensuring it stays within the bottom bounds of the screen.
+	 */
 	public void moveCharacterDown() {
 		// Check the bottom screen bounds
 		if (posY + 60 < height) {
@@ -445,6 +596,12 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Draws the visible area of the buffer onto the provided Graphics context.
+	 * This method only draws the portion of the buffer currently visible on screen.
+	 *
+	 * @param g The Graphics context to draw on.
+	 */
 	public void drawVisibleArea(Graphics g) {
 
 		// Iterate over the height
@@ -464,6 +621,15 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Draws the character as a filled square on the screen at its current position.
+	 * Also checks for collisions with obstacles and whether the player has reached the end of the scrolling area.
+	 *
+	 * @param size The size of the character square.
+	 * @param r The red component of the character's colour.
+	 * @param g The green component of the character's colour.
+	 * @param b The blue component of the character's colour.
+	 */
 	public void drawCharacter(int size, int r, int g, int b) {
 
 		// Center of the visible area
@@ -508,6 +674,12 @@ public class FrameBuffer {
 		}
 	}
 
+	/**
+	 * Defines the positions and sizes of obstacles in the game.
+	 * Each obstacle is defined by its top-left corner and its width and height.
+	 *
+	 * @return A list of integer arrays, each representing an obstacle.
+	 */
 	private List<int[]> defineObstacleCollisions() {
 
 		List<int[]> obstacles = new ArrayList<>();
@@ -523,6 +695,19 @@ public class FrameBuffer {
 		return obstacles;
 	}
 
+	/**
+	 * Checks if the character is colliding with an obstacle.
+	 * Collision is detected by comparing the character's position and size with the obstacle's bounds.
+	 *
+	 * @param charX The x-coordinate of the character's top-left corner.
+	 * @param charY The y-coordinate of the character's top-left corner.
+	 * @param charSize The size of the character.
+	 * @param obsX The x-coordinate of the obstacle's top-left corner.
+	 * @param obsY The y-coordinate of the obstacle's top-left corner.
+	 * @param obsWidth The width of the obstacle.
+	 * @param obsHeight The height of the obstacle.
+	 * @return True if there is a collision, false otherwise.
+	 */
 	public boolean checkCollision(int charX, int charY, int charSize, int obsX, int obsY, int obsWidth, int obsHeight) {
 		return (charX < obsX + obsWidth && charX + charSize > obsX &&
 				charY < obsY + obsHeight && charY + charSize > obsY);
