@@ -342,10 +342,20 @@ public class Assign1 {
         }
     }
 
+    /**
+     * Extracts RGB colour values from a formatted string.
+     *
+     * @param colour The string containing the RGB values.
+     * @return An array containing the red, green, and blue values as integers.
+     */
     public static int[] extractColour(String colour) {
 
-        colour = colour.replace("(", "").replace(")", ""); // Remove the parentheses
-        String[] colourTokens = colour.split(","); // Split by comma
+        // Remove the parentheses
+        colour = colour.replace("(", "").replace(")", "");
+        // Split by comma to extract the individual colours
+        String[] colourTokens = colour.split(",");
+
+        // Store the extracted colours in an array
         int[] colours = new int[3];
         colours[0] = Integer.parseInt(colourTokens[0]); // Red
         colours[1] = Integer.parseInt(colourTokens[1]); // Green
@@ -354,6 +364,15 @@ public class Assign1 {
         return colours;
     }
 
+    /**
+     * Ensures that the provided RGB colour values are within the valid range (0-255).
+     * If a value is outside this range, it is clamped to the nearest valid value.
+     *
+     * @param red The red component of the colour.
+     * @param green The green component of the colour.
+     * @param blue The blue component of the colour.
+     * @return An array containing the red, green, and blue values.
+     */
     public static int[] checkColourRange(int red, int green, int blue) {
 
         int[] colours = new int[3];
@@ -366,6 +385,14 @@ public class Assign1 {
         return colours;
     }
 
+    /**
+     * Loads a BMP image file and updates the FrameBuffer with the image data.
+     * The pixel data from the image is read and stored in the buffer, and the image is drawn on the canvas.
+     *
+     * @param fileName The name of the BMP file to load.
+     * @param buffer The FrameBuffer object where the image pixels will be stored.
+     * @param canvas The Canvas object where the image will be drawn.
+     */
     public static void loadFile(String fileName, FrameBuffer buffer, Canvas canvas) {
 
         try {
@@ -381,11 +408,11 @@ public class Assign1 {
                 buffer = new FrameBuffer(width, height);
             }
 
-            // Draw the entire image directly to the canvas
+            // Draw the image onto the canvas
             Graphics g = canvas.getGraphics();
             g.drawImage(image, 0, 0, null);
 
-            // Access the pixel data manually
+            // Access the pixel data
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     buffer.getPixels()[y * width + + x] = image.getRGB(x, y);
