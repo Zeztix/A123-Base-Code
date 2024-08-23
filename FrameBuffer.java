@@ -1,16 +1,7 @@
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static java.lang.Math.min;
-
-/**
- * Frame buffer class skeleton
- */
 
 public class FrameBuffer {
 
@@ -439,14 +430,19 @@ public class FrameBuffer {
 	}
 
 	public void moveCharacterUp() {
-		// TODO: Add a screen bounds check
-		posY -= 10;
-		drawCharacter(20, 255, 0, 0);
+		// Check the top screen bounds
+		if (posY - 20 > 0) {
+			posY -= 10;
+			drawCharacter(20, 255, 0, 0);
+		}
 	}
 
 	public void moveCharacterDown() {
-		posY += 10;
-		drawCharacter(20, 255, 0, 0);
+		// Check the bottom screen bounds
+		if (posY + 60 < height) {
+			posY += 10;
+			drawCharacter(20, 255, 0, 0);
+		}
 	}
 
 	public void drawVisibleArea(Graphics g) {
